@@ -145,32 +145,19 @@
 import "ol/ol.css";
 import {
   Tile as TileLayer,
-  Heatmap as HeatmapLayer,
   Vector as VectorLayer,
-  Image as ImageLayer,
 } from "ol/layer";
-// import XYZ from "ol/source/XYZ";
 import {
   OSM,
   XYZ,
   Vector as VectorSource,
-  TileDebug,
-  Cluster,
-  ImageWMS,
-  Image,
-  ImageStatic,
-  TileImage,
   WMTS,
-  TileArcGISRest,
 } from "ol/source";
 import { Map as olMap, View, Feature, Overlay } from "ol";
 
 import {
   get as getProjection,
-  fromLonLat,
   transform,
-  addProjection,
-  addCoordinateTransforms,
 } from "ol/proj";
 import Projection from "ol/proj/Projection";
 
@@ -179,7 +166,6 @@ import { defaults as defaultControls } from "ol/control";
 import GeoJSON from "ol/format/GeoJSON";
 import {
   Style,
-  Text,
   Icon,
   Fill,
   Stroke,
@@ -187,9 +173,6 @@ import {
   Circle as CircleStyle,
 } from "ol/style";
 
-import TileGrid from "ol/tilegrid/TileGrid";
-//
-import * as olCoordinate from "ol/coordinate";
 // 选中图层交互
 import { Select as InteractionSelect } from "ol/interaction";
 
@@ -199,13 +182,10 @@ import { Select as InteractionSelect } from "ol/interaction";
 import WMTSTileGrid from "ol/tilegrid/WMTS";
 
 // 百度地图坐标系
-import projzh from "projzh";
-import { getTopLeft, getWidth, applyTransform } from "ol/extent";
+import { getTopLeft, getWidth } from "ol/extent";
 
 // 导入axios
 import axios from "axios";
-
-import { mercatorToLngLat, lngLatToMercator } from "./js/bd09";
 
 import { getDistance } from "ol/sphere";
 
@@ -214,15 +194,11 @@ import { polluteAreaList, companyList } from "./js/data";
 
 // 导入公共模块
 import {
-  addTdtWmtsLayer,
-  addWmtsLayer,
-  addOSMLayer,
-  addXYZLayer,
-  addWMSLayer,
-  changeTheme,
-  addLayerToMap,
   gaodeTranslate,
+  addXYZLayer
 } from "./js/commonApi";
+
+// 项目所用的图片。
 import polluteImg from "/image/pollute1.png";
 import farmImg from "/image/farm-use1.png";
 import farmControlImg from "/image/farm-control1.png";
