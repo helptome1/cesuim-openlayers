@@ -1144,7 +1144,7 @@ export default {
   },
 };
 </script>
-<style lang="less">
+<style lang="less" scope>
 #map {
   position: absolute;
   width: 100%;

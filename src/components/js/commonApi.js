@@ -217,7 +217,7 @@ function addBaiduLayer(map) {
         y +
         "&z=" +
         z +
-        "&styles=pl&udt=20151021&scaler=1&p=1"
+        "&styles=pl&udt=20220811&scaler=1&p=1&from=jsapi2_0"
       );
     },
     crossOrigin: "anonymous",
