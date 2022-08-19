@@ -59,6 +59,8 @@ import { mercatorToLngLat, lngLatToMercator } from "./js/bd09";
 // 导入公共模块
 import { addTdtWmtsLayer, addWmtsLayer, addOSMLayer, addXYZLayer, addWMSLayer, changeTheme, addBaiduLayer, addLayerToMap, gaodeTranslate } from "./js/commonApi";
 
+import gcoord from "gcoord";
+
 export default {
   data() {
     return {
@@ -240,7 +242,6 @@ export default {
       return mapLayer;
     },
     addAmapLayer() {
-
       const AmapLayer = new TileLayer({
         source: new XYZ({
           projection: "GCJ-02",
@@ -307,10 +308,6 @@ export default {
         target: "map",
       });
 
-      // this.map.addLayer(tiandituLayer)
-
-      console.log("layers", this.map.getLayers());
-
       // 添加百度地图
       this.getGeoJson(); //加载geojson图层
 
@@ -354,7 +351,7 @@ export default {
       this.pointLayer.getSource().addFeature(activity);
       this.map.addLayer(this.pointLayer);
     },
-    addGeoJSON(src) {
+    addGeoJSON(src, color) {
       // 创建geojson数据来源
       var geoSourece = new VectorSource({
         // url: '../../public/json/data.json'
@@ -373,7 +370,7 @@ export default {
         style: function (feature, demo) {
           return new Style({
             stroke: new Stroke({
-              color: "green",
+              color: color,
               width: 2,
             }),
             // fill: new Fill({
@@ -388,11 +385,21 @@ export default {
     getGeoJson() {
       axios.get("/json/museum.geojson").then((res) => {
         console.log("museum", res.data);
-        this.addGeoJSON(res.data);
+        var geojson = res.data.features[0].geometry
+        // 转换GeoJSON坐标
+        // var geojson = {
+        //   type: "Point",
+        //   coordinates: [123, 45],
+        // };
+        gcoord.transform(geojson, gcoord.GCJ02, gcoord.WGS84);
+
+
+        console.log("gcoord",geojson.coordinates); // [122.99395597, 44.99804071]
+        this.addGeoJSON(geojson, 'red');
       });
       axios.get("/json/museum2.geojson").then((res) => {
-        console.log("museum2",res.data);
-        this.addGeoJSON(res.data);
+        // console.log("museum2", res.data);
+        this.addGeoJSON(res.data, 'green');
       });
     },
 
