@@ -169,7 +169,7 @@ export default {
       },
       tiandiTuTk: import.meta.env.VITE_TIANDITU_TK,
       // 演示使用
-      // tiandiTuTk: "df269ecc24afb3eec74690c2cfe0fd44",
+      // tiandiTuTk: "",
       // shice
     };
   },
